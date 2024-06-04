@@ -5,7 +5,10 @@ namespace AOP.Server
 {
     public class CurrencyExchange
     {
-
+        /// <summary>
+        /// load from api.frankfurter.app current exchange values
+        /// </summary>
+        /// <returns>exchange rates</returns>
         public static async Task<Models.ExchangeRates> GetExchangeRates()
         {
             Models.ExchangeRates exchangeRates = new ExchangeRates();

@@ -16,9 +16,14 @@ namespace AOP.Server.Controllers
             _northwindDbService = northwindDbService;
         }
 
-
-        [HttpGet("{country}/{currency?}")]
-        public async Task <IEnumerable<Models.Aop>> Aop(string country, string currency = "USD")
+        /// <summary>
+        /// calculate 
+        /// </summary>
+        /// <param name="currency"></param>
+        /// <param name="country"></param>
+        /// <returns></returns>
+        [HttpGet("{currency?}/{country?}")]
+        public async Task <IEnumerable<Models.Aop>> Aop(string currency = "USD", string country = "")
         {
 
             var aops = _northwindDbService.GetAop(country);

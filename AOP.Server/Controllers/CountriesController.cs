@@ -17,6 +17,10 @@ namespace AOP.Server.Controllers
         }
 
 
+        /// <summary>
+        /// get all countries from northwind db
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<Models.Country> Countries()
         {

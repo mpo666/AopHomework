@@ -1,18 +1,11 @@
 import { useEffect, useState } from 'react';
 import CbCountries from './components/CbCountries';
 import CbCurrency from './components/CbCurrency';
-
+import TbText from './components/TbText';
+import Currency from './interfaces/Currency';
+import Country from './interfaces/Country';
 
 import './App.css';
-
-interface Country {
-    name: string;
-}
-
-interface Currency {
-    name: string;
-    exchange: number;
-}
 
 function App() {
 
@@ -25,22 +18,15 @@ function App() {
     }, []);
 
 
-    
-    //const countries = [];
     let contents = <div>loading data...</div>;
     if (countries !== undefined && currencies !== undefined) {
 
-        contents = <div><CbCountries id="country" countries={countries} onchange={onChangeParams} />
-            <CbCurrency id="currency" currencies={currencies} onchange={onChangeParams} />
+        contents = <div>
+            <CbCountries label={'Country'} id={'country'} countries={countries} onchange={onChangeParams} />
+            <CbCurrency label={'Currency'}  id={'currency'} currencies={currencies} onchange={onChangeParams} />
             <br />
-            <div>
-                <label htmlFor={'avgOrder'}>Avg order price: </label>
-                <input id={'avgOrder'} type={'text'}></input><br />
-            </div>
-            <div>
-                <label htmlFor={'avgFreight'}>Avg freight price: </label>
-                <input id={'avgFreight'} type={'text'}></input>
-            </div>
+            <TbText id={'avgOrder'} label={'Avg. order costs:'} />
+            <TbText id={'avgFreight'} label={'Avg. freight costs:'} />
         </div>;
             
     }
@@ -67,7 +53,7 @@ function App() {
             return;
         }
 
-        const url = 'api/aop/' + country.value + '/' + currency.value;
+        const url = 'api/aop/' + currency.value + '/' + country.value;
         const response = await fetch(url);
         const data = await response.json();
 

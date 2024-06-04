@@ -1,15 +1,23 @@
-export default function CbCurrency(props: object) {
-    if (!Array.isArray(props.currencies)) {
-        props.currencies = [];
-    }
+import Currency from '../interfaces/Currency';
+
+type CbCurrencyProps = {
+    id: string;
+    currencies: Currency[];
+    label?: string;
+    value?: string;
+    onchange?: object;
+};
+
+const CbCurrency = (props: CbCurrencyProps) => {
     return (
         <div>
-            <label htmlFor={props.id}>Currency: </label>
-            <select className="form-select form-select-lg mb-3" id={props.id} onChange={props.onchange} >
+            <label htmlFor={props.id}>{props.label}</label>
+            <select className="form-select form-select-lg mb-3" id={props.id} onChange={props.onchange}>
                 {props.currencies.map(currency => <option key={currency.name}>{currency.name}</option>)}
             </select>
         </div>
     );
 }
 
-//export default CbCurrency;
+export default CbCurrency;
+

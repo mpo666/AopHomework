@@ -24,6 +24,11 @@ namespace AOP.Server
             return connectionString;
         }
 
+
+        /// <summary>
+        /// gets list from all countries
+        /// </summary>
+        /// <returns>List Models.Country</returns>
         public List<Models.Country> GetCountries()
         {
             List<Models.Country> countries = new List<Models.Country>();
@@ -50,7 +55,11 @@ namespace AOP.Server
             return countries;
         }
 
-
+        /// <summary>
+        /// calculate aop for all coiuntries or selected country
+        /// </summary>
+        /// <param name="Country"></param>
+        /// <returns>List Models.Aop</returns>
         public List<Models.Aop> GetAop(string Country = "") 
         {
             List<Models.Aop> aops = new List<Models.Aop>();
@@ -64,17 +73,17 @@ namespace AOP.Server
 	
                                 SELECT 
 	                                o.ShipCountry
-	                                ,AVG ( (od.UnitPrice - (od.UnitPrice * od.Discount)) * od.Quantity) AS AvgOrderPrice
-	                                ,AVG(o.Freight) AS AvgFreight
-	                                ,count(o.orderid) AS CNT
+	                                ,SUM ( (od.UnitPrice - (od.UnitPrice * od.Discount)) * od.Quantity) AS AvgOrderPrice
+	                                ,o.Freight AS AvgFreight
+	                                ,count(o.OrderID) AS CNT
                                 INTO #OAVG
-                                FROM orders o
+                                FROM Orders o
                                 JOIN [Order Details] od ON od.OrderID = o.OrderID ";
                                 if (Country != string.Empty)
                                 {
                                     query += "WHERE o.ShipCountry = @ShipCountry ";
                                 }
-                query += @"GROUP BY o.orderid, o.ShipCountry
+                query += @"GROUP BY o.OrderID, o.ShipCountry, o.Freight
                                 ORDER BY ShipCountry 
 
 

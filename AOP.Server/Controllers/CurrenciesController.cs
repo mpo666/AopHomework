@@ -20,6 +20,9 @@ namespace AOP.Server.Controllers
         [HttpGet]
         public IEnumerable<Models.Currency> Countries()
         {
+            // fix list from requested currencies
+            // could be extend with remote api request from class CurrencyExchange
+
             List<Models.Currency> currencies = new List<Models.Currency>()
             {
                 new Models.Currency() { Name = "USD" },
